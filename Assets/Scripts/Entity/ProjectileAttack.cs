@@ -7,6 +7,7 @@ public class ProjectileAttack : MonoBehaviour
 {
     [SerializeField] private GameObject attackOrigin;
     [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private AudioSource attackSound;
 
     public void ShootAt(GameObject target)
     {
@@ -17,6 +18,11 @@ public class ProjectileAttack : MonoBehaviour
                 var projectileObj = Instantiate(projectilePrefab, 
                     attackOrigin.transform.position, attackOrigin.transform.rotation);
             }
+        }
+
+        if(attackSound != null)
+        {
+            attackSound.Play();
         }
 
     }
