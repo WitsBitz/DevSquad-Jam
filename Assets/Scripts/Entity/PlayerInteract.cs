@@ -28,8 +28,9 @@ public class PlayerInteract : MonoBehaviour {
 			Selected = null;
 		}
 
-		if(OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) && Selected != null || Input.GetKeyDown(KeyCode.Space))
+		if(OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) && Selected != null || Input.GetKeyDown(KeyCode.Space) && Selected != null)
 		{	
+
 			Selected.OnUse();
 		}
 

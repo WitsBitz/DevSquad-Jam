@@ -17,7 +17,17 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        var healthComponent = collider.gameObject.GetComponent<Health>();
+        hit(collider.gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        hit(collision.gameObject);
+    }
+
+    private void hit(GameObject target)
+    {
+        var healthComponent = target.GetComponent<Health>();
         if(healthComponent != null)
         {
             healthComponent.TakeDamage(damage);
