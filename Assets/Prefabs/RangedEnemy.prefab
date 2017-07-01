@@ -350,6 +350,7 @@ MonoBehaviour:
   idleCooldown: 1.5
   dodgeCooldown: 3.5
   acceptableAttackAngleDegrees: 15
+  dodgeCompleteDistance: 0.1
 --- !u!136 &136066011677563736
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -20,8 +20,9 @@ public class MoveAndAttack : MonoBehaviour
     [SerializeField] private float idleCooldown;
     [SerializeField] private float dodgeCooldown;
     [SerializeField] private float acceptableAttackAngleDegrees;
+    [SerializeField] private float dodgeCompleteDistance;
 
-    private float currentCooldown;
+    private float stateCooldown;
     private Vector3 center;
     private Vector3 currentWaypoint;
     private MoveState moveState;
@@ -34,14 +35,14 @@ public class MoveAndAttack : MonoBehaviour
         attack = GetComponent<ProjectileAttack>();
 
         // Randomize the enemy starts
-        currentCooldown = UnityEngine.Random.Range(0f, idleCooldown);
+        stateCooldown = UnityEngine.Random.Range(0f, idleCooldown);
     }
 
 	// Update is called once per frame
 	private void Update () 
     {
-        currentCooldown -= Time.deltaTime;
-        if(currentCooldown <= 0f)
+        stateCooldown -= Time.deltaTime;
+        if(stateCooldown <= 0f)
         {
             IncrementState();
         }
@@ -106,8 +107,7 @@ public class MoveAndAttack : MonoBehaviour
 
     private bool HasReachedCurrentWaypoint()
     {
-        const float CLOSE_ENOUGH = 0.1f;
-        return Vector3.Distance(transform.position, currentWaypoint) < CLOSE_ENOUGH;
+        return Vector3.Distance(transform.position, currentWaypoint) < dodgeCompleteDistance;
     }
 
     private void IncrementState()
@@ -117,15 +117,15 @@ public class MoveAndAttack : MonoBehaviour
             case MoveState.Idle:
                 moveState = MoveState.Dodge;
                 currentWaypoint = ChooseDodgePosition();
-                currentCooldown = dodgeCooldown;
+                stateCooldown = dodgeCooldown;
                 break;
             case MoveState.Attack:
                 moveState = MoveState.Idle;
-                currentCooldown = idleCooldown;
+                stateCooldown = idleCooldown;
                 break;
             case MoveState.Dodge:
                 moveState = MoveState.Attack;
-                currentCooldown = 0;
+                stateCooldown = 0;
                 break;
         }
     }
