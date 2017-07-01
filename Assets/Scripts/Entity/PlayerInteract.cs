@@ -18,7 +18,6 @@ public class PlayerInteract : MonoBehaviour {
 		{
 			if(hit.transform.GetComponent<Selectable>() != null && Selected == null)
 			{
-				Debug.Log("Hit Door");
 				Selected = hit.transform.GetComponent<Selectable>();
 				Selected.OnSelectEnter();
 			}
@@ -29,11 +28,10 @@ public class PlayerInteract : MonoBehaviour {
 			Selected = null;
 		}
 
-		if(OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) && Selected != null)
+		if(OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) && Selected != null || Input.GetKeyDown(KeyCode.Space))
 		{	
 			Selected.OnUse();
 		}
 
-		
 	}
 }

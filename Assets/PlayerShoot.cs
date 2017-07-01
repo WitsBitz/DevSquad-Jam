@@ -38,13 +38,13 @@ public class PlayerShoot : MonoBehaviour {
 		}
 
 		//Swipe Up
-		if(OVRInput.Get(OVRInput.Button.Up))
+		if(OVRInput.Get(OVRInput.Button.Up) || Input.GetKeyDown(KeyCode.UpArrow))
 		{
 			SwitchWeapons();
 		}
 
 		//Swipe Down
-		if(OVRInput.Get(OVRInput.Button.Down))
+		if(OVRInput.Get(OVRInput.Button.Down) || Input.GetKeyDown(KeyCode.DownArrow))
 		{
 			SwitchWeapons();
 		}

@@ -34,53 +34,48 @@ public class PlayerMovement : MonoBehaviour {
 
 		bool touchpadPressed = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad));
 		
-		if(touchpadPressed)
+		GameObject camera = Camera.main.gameObject;
+		// Define local vectors
+		Vector3 forward = camera.transform.TransformDirection(Vector3.forward);
+		Vector3 backward = camera.transform.TransformDirection(Vector3.back);
+		Vector3 left = camera.transform.TransformDirection(Vector3.left);
+		Vector3 right = camera.transform.TransformDirection(Vector3.right);
+
+		// Initialize movement for this frame; default to nothing
+		Vector3 movement = Vector3.zero;
+
+		// Handle X translation
+		if (touchInput.x < -deadzoneX && touchpadPressed || Input.GetKey(KeyCode.A))
 		{
-			GameObject camera = Camera.main.gameObject;
-		    // Define local vectors
-			Vector3 forward = camera.transform.TransformDirection(Vector3.forward);
-			Vector3 backward = camera.transform.TransformDirection(Vector3.back);
-			Vector3 left = camera.transform.TransformDirection(Vector3.left);
-			Vector3 right = camera.transform.TransformDirection(Vector3.right);
-
-			// Initialize movement for this frame; default to nothing
-			Vector3 movement = Vector3.zero;
-
-			// Handle X translation
-			if (touchInput.x < -deadzoneX)
-			{
-				movement += left;
-			}
-			else if (touchInput.x > deadzoneX)
-			{
-				movement += right;
-			}
-
-			// Handle Y translation
-			if (touchInput.y > deadzoneY)
-			{
-				movement += forward;
-			}
-			else if (touchInput.y < -deadzoneY)
-			{
-				movement += backward;
-			}
-
-			// Move!
-			controller.SimpleMove(movement * speed);
+			movement += left;
 		}
+		else if (touchInput.x > deadzoneX && touchpadPressed || Input.GetKey(KeyCode.D))
+		{
+			movement += right;
+		}
+
+		// Handle Y translation
+		if (touchInput.y > deadzoneY && touchpadPressed || Input.GetKey(KeyCode.W))
+		{
+			movement += forward;
+		}
+		else if (touchInput.y < -deadzoneY && touchpadPressed || Input.GetKey(KeyCode.S))
+		{
+			movement += backward;
+		}
+
+		// Move!
+		controller.SimpleMove(movement * speed);
 
 		//Swipe Left
 		if(OVRInput.Get(OVRInput.Button.Left) || Input.GetKeyDown(KeyCode.LeftArrow))
 		{
-			Debug.Log("Swiped Left");
 			StartCoroutine(QuickRotate(new Vector3(0,-45,0), .25f));
 
 		}
 		//Swipe Right
 		if(OVRInput.Get(OVRInput.Button.Right) || Input.GetKeyDown(KeyCode.RightArrow))
 		{
-			Debug.Log("Swiped Right");
 			StartCoroutine(QuickRotate(new Vector3(0,45,0), .25f));
 		}
 	}
