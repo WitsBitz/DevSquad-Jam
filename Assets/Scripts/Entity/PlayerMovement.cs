@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour {
 
     CharacterController controller;
 
+	float timer = 0;
     // Use this for initialization
     void Start ()
     {
@@ -68,5 +69,45 @@ public class PlayerMovement : MonoBehaviour {
 			// Move!
 			controller.SimpleMove(movement * speed);
 		}
+
+		//Swipe Left
+		if(OVRInput.Get(OVRInput.Button.Left) || Input.GetKeyDown(KeyCode.LeftArrow))
+		{
+			Debug.Log("Swiped Left");
+			StartCoroutine(QuickRotate(new Vector3(0,-45,0), .25f));
+
+		}
+		//Swipe Right
+		if(OVRInput.Get(OVRInput.Button.Right) || Input.GetKeyDown(KeyCode.RightArrow))
+		{
+			Debug.Log("Swiped Right");
+			StartCoroutine(QuickRotate(new Vector3(0,45,0), .25f));
+		}
 	}
+
+	IEnumerator QuickRotate(Vector3 byAngles, float inTime)
+	{
+		var fromAngle = transform.rotation;
+        var toAngle = Quaternion.Euler(transform.eulerAngles + byAngles);
+
+        for(var t = 0f; t < 1; t += Time.deltaTime/inTime) 
+		{
+            transform.rotation = Quaternion.Lerp(fromAngle, toAngle, t);
+            yield return null;
+		}
+    }
+		// Debug.Log("Rotating");
+		// float rotateTime = .25f;
+		// timer += Time.deltaTime;
+		// if(timer < rotateTime)
+		// {
+		// 	Quaternion.Slerp(transform.rotation, dest, timer * 1/rotateTime);
+		// 	yield return new WaitForEndOfFrame();
+		// }
+		// else
+		// {
+		// 	timer = 0;
+		// 	yield return null;
+		// }
+	
 }

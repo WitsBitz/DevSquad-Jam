@@ -6,9 +6,8 @@ public class PlayerInteract : MonoBehaviour {
 
 	[SerializeField] private GameObject firePoint;
 	[SerializeField] private GameObject hand;
-	[SerializeField] private GameObject target;
 
-	private Selectable selected;
+	public Selectable Selected { get; private set; }
 	
 	void Update () {
 		RaycastHit hit;
@@ -17,27 +16,24 @@ public class PlayerInteract : MonoBehaviour {
 
 		if(Physics.Raycast(firePoint.transform.position, hand.transform.forward, out hit, 2, layerMask))
 		{
-			if(hit.transform.GetComponent<Selectable>() != null && selected == null)
+			if(hit.transform.GetComponent<Selectable>() != null && Selected == null)
 			{
 				Debug.Log("Hit Door");
-				selected = hit.transform.GetComponent<Selectable>();
-				selected.OnSelectEnter();
+				Selected = hit.transform.GetComponent<Selectable>();
+				Selected.OnSelectEnter();
 			}
 		}
-		else if(selected != null)
+		else if(Selected != null)
 		{
-			selected.OnSelectExit();
-			selected = null;
+			Selected.OnSelectExit();
+			Selected = null;
 		}
 
-		if(OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) && selected != null)
+		if(OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) && Selected != null)
 		{	
-			selected.OnUse();
+			Selected.OnUse();
 		}
 
-		if(Physics.Raycast(firePoint.transform.position, hand.transform.forward, out hit, Mathf.Infinity))
-		{
-			target.transform.position = hit.point;
-		}
+		
 	}
 }
