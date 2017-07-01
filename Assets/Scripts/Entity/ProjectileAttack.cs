@@ -19,7 +19,7 @@ public class ProjectileAttack : MonoBehaviour
         // Try to find the evil human
         if(target == null)
         {
-            target = GameObject.Find("OVRPlayerController");
+            target = Game.instance.player;
         }
 
         TurnTowardsTarget(target);
