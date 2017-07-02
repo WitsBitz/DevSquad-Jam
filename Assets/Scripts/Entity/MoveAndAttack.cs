@@ -13,6 +13,7 @@ public class MoveAndAttack : MonoBehaviour
         Attack
     }
 
+    [SerializeField] private bool canRecenterOnDodge;
     [SerializeField] public float radius;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float rotationSpeed;
@@ -118,6 +119,12 @@ public class MoveAndAttack : MonoBehaviour
         {
             case MoveState.Idle:
                 moveState = MoveState.Dodge;
+                // If we aren't leashed to our origin, reset the start position
+                if(canRecenterOnDodge)
+                {
+                    center = transform.position;
+                }
+
                 currentWaypoint = ChooseDodgePosition();
                 stateCooldown = dodgeCooldown;
                 break;
