@@ -30,7 +30,6 @@ public class PlayerInteract : MonoBehaviour {
 
 		if(OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) && Selected != null || Input.GetKeyDown(KeyCode.Space) && Selected != null)
 		{	
-
 			Selected.OnUse();
 		}
 

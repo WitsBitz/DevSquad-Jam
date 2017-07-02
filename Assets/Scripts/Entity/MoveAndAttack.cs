@@ -28,9 +28,10 @@ public class MoveAndAttack : MonoBehaviour
     private MoveState moveState;
     private GameObject target;
     private ProjectileAttack attack;
-
+    private Animator anim;
     private void Start()
     {
+        anim = GetComponent<Animator>();
         currentWaypoint = center = transform.position;
         attack = GetComponent<ProjectileAttack>();
 
@@ -50,7 +51,7 @@ public class MoveAndAttack : MonoBehaviour
         // Try to find the evil human
         if(target == null)
         {
-            target = Game.instance.player;
+            target = Game.instance.Player;
         }
         TurnTowardsTarget(target);
 
@@ -63,6 +64,7 @@ public class MoveAndAttack : MonoBehaviour
                 if(IsFacingTarget(target))
                 {
                     attack.ShootAt(target);
+                    anim.SetTrigger("attack");
                 }
                 break;
             case MoveState.Dodge:

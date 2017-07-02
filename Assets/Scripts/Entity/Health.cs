@@ -38,6 +38,11 @@ public class Health : MonoBehaviour
 
     private void Start()
     {
-        health = maxHealth;
+        health = MaxHealth;
+    }
+
+    public void ResetHealth()
+    {
+        health = MaxHealth;
     }
 }

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ProjectileAttack))]
 public class ApproachAndAttack : MonoBehaviour 
 {
     private enum MoveState
@@ -27,12 +26,11 @@ public class ApproachAndAttack : MonoBehaviour
     private Vector3 center;
     private MoveState moveState;
     private GameObject target;
-    private ProjectileAttack attack;
+    private Animator anim;
 
     private void Start()
     {
-        attack = GetComponent<ProjectileAttack>();
-
+        anim = GetComponent<Animator>();
         // Randomize the enemy starts
         stateCooldown = UnityEngine.Random.Range(0f, idleCooldown);
     }
@@ -46,7 +44,7 @@ public class ApproachAndAttack : MonoBehaviour
         // Try to find the evil human
         if(target == null)
         {
-            target = Game.instance.player;
+            target = Game.instance.Player;
         }
         TurnTowardsTarget(target);
 
@@ -61,11 +59,11 @@ public class ApproachAndAttack : MonoBehaviour
             case MoveState.Attack:
                 if(IsFacingTarget(target) && currentAttackCooldown <= 0f)
                 {
-                    attack.ShootAt(target);
                     currentAttackCooldown = attackCooldown;
-
+                    anim.SetTrigger("attack");
                     // If we just attacked, go to idle
                     moveState = MoveState.Idle;
+                    anim.SetTrigger("idle");
                     stateCooldown = idleCooldown;
                 }
                 else
@@ -116,7 +114,7 @@ public class ApproachAndAttack : MonoBehaviour
 
     private Vector3 GetDestination()
     {
-        var player = Game.instance.player.transform.position;
+        var player = Game.instance.Player.transform.position;
         return new Vector3(player.x, transform.position.y, player.z);
     }
 

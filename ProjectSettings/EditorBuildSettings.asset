@@ -24,8 +24,11 @@ EditorBuildSettings:
     path: 
     guid: b62ef4a8c87fa764bbfdb7d250ce1c08
   - enabled: 1
-    path: Assets/Scenes/TestRoom.unity
+    path: Assets/Scenes/StartRoom.unity
     guid: acdc30aeaa0ac344a925951fb7c12c48
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestRoomCombat.unity
-    guid: 00000000000000000000000000000000
+    guid: 8529f03e96cfcc64593ab952da06d010
+  - enabled: 1
+    path: Assets/Scenes/Room1.unity
+    guid: 190e71cea9d89444fbc1a474fb0fb0ac

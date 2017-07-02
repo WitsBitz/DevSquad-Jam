@@ -12,7 +12,7 @@ public class DebugHealth : MonoBehaviour
     private void Start()
     {
         text = GetComponent<Text>();
-        units[2] = Game.instance.player.GetComponent<Health>();
+        units[2] = Game.instance.Player.GetComponent<Health>();
     }
 
 	private void Update () 

@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4713609396580926}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AttackOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 33138512438312582}
   - component: {fileID: 136695538328266794}
   - component: {fileID: 23490181789631028}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 33017226238142226}
   - component: {fileID: 136258785465420620}
   - component: {fileID: 23505307823801956}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arm (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 33534485310808602}
   - component: {fileID: 136066011677563736}
   - component: {fileID: 23865633944087462}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,11 +91,11 @@ GameObject:
   - component: {fileID: 114377043681296738}
   - component: {fileID: 114049600628505282}
   - component: {fileID: 114966774095772734}
-  - component: {fileID: 114315204102328590}
+  - component: {fileID: 114735380471934718}
   - component: {fileID: 82470023818032514}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RangedEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -380,24 +380,18 @@ MonoBehaviour:
   maxHealth: 2
   damageTakenEvent:
     m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
---- !u!114 &114315204102328590
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1958464045093314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bf030215906d4c4eb2ba4ed9e2e9282, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 2
-  damageTakenEvent:
-    m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114735380471934718}
+        m_MethodName: TakeDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
 --- !u!114 &114377043681296738
@@ -415,6 +409,17 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1191950278890098, guid: 810971c80f54d01428731106e05c8850,
     type: 2}
   attackSound: {fileID: 82470023818032514}
+--- !u!114 &114735380471934718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1958464045093314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3063c12fd3b7bdc4887c5526b209f712, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114966774095772734
 MonoBehaviour:
   m_ObjectHideFlags: 1

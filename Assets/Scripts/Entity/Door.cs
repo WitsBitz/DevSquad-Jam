@@ -10,6 +10,8 @@ public class Door : Selectable {
 
 	private Animator anim;
 
+	public bool Locked { get; set; }
+
 	public override void Awake()
 	{
 		base.Awake();
@@ -18,19 +20,27 @@ public class Door : Selectable {
 
 	public override void OnSelectEnter()
 	{
-		base.OnSelectEnter();
-		
+		if(!Locked)
+		{
+			base.OnSelectEnter();
+		}
 	}
 
 	public override void OnSelectExit()
 	{
+		if(!Locked)
+		{
 		base.OnSelectExit();
+		}
 	}
 
 	public override void OnUse()
 	{
-		anim.SetTrigger("OpenDoor");
-		Invoke("LoadScene", 1f);
+		if(!Locked)
+		{
+			anim.SetTrigger("OpenDoor");
+			Invoke("LoadScene", 1f);
+		}
 	}
 
 	void LoadScene () {

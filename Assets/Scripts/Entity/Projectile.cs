@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private int damage;
     [SerializeField] private float force;
+    [SerializeField] private GameObject explosionFX;
     private new Rigidbody rigidbody;
 
     private void Start()
@@ -26,10 +27,13 @@ public class Projectile : MonoBehaviour
     }
 
     private void hit(GameObject target)
-    {
-        var healthComponent = target.GetComponent<Health>();
-        if(healthComponent != null)
+    {   
+        explosionFX.transform.SetParent(null);
+        explosionFX.SetActive(true);
+        
+        if(target.gameObject.GetComponent<Health>() != null)
         {
+            var healthComponent = target.gameObject.GetComponent<Health>();
             healthComponent.TakeDamage(damage);
         }
 
