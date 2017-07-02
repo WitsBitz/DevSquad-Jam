@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Selectable : MonoBehaviour {
 
 	[SerializeField] protected Renderer rend;
+	[SerializeField] protected UnityEvent onUse;
 
 	public virtual void Awake () {
 		if(rend == null)
@@ -39,8 +41,8 @@ public class Selectable : MonoBehaviour {
 
 	public virtual void OnUse()
 	{
-		
-	}
+        onUse.Invoke();
+    }
 
 	// Update is called once per frame
 	void Update () {
