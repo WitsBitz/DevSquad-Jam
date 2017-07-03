@@ -21,7 +21,7 @@ public class PlayerBehavior : MonoBehaviour {
 
 	void PlayerDeath()
 	{
-		Game.instance.LoadScene("StartRoom");
+		Game.instance.LoadScene("Start");
 		playerHealth.ResetHealth();
 	}
 }

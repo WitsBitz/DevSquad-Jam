@@ -24,6 +24,7 @@ public class Bullet : MonoBehaviour {
 	void OnCollisionEnter (Collision col) 
 	{
 	    explosionFX.transform.SetParent(null);
+		explosionFX.transform.localScale = new Vector3(1,1,1);
         explosionFX.SetActive(true);
 
 		if(col.gameObject.CompareTag("Enemy"))

@@ -12,10 +12,15 @@ public class Game : MonoBehaviour {
 
     public List<GameObject> Enemies {get; set;}
     public List<Door> Doors {get; set;}
+    public List<GameObject> Torches {get; set;}
 
+    public Vector3 SpawnPosition {get; set;}
+    public Vector3 SpawnRotOffset {get; set;}
+    
 	void Awake()
 	{
         Enemies = new List<GameObject>();
+        Torches = new List<GameObject>();
         Doors = new List<Door>();
 
         if(Player == null)
@@ -51,6 +56,10 @@ public class Game : MonoBehaviour {
                 {
                     door.Locked = false;
                 }
+                foreach(GameObject torch in Torches)
+                {
+                    torch.SetActive(true);
+                }
                 Doors.Clear();
             }
         }
@@ -69,11 +78,12 @@ public class Game : MonoBehaviour {
             if(Player == null)
             {
                 Player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+                Player.name = ("Player");
             }
         }
 
-        Player.transform.position = Vector3.zero;
-        Player.transform.rotation = Quaternion.identity;
+        Player.transform.position = SpawnPosition;
+        Player.transform.rotation = Quaternion.Euler(SpawnRotOffset);
 
         StartEncounter();
     }
@@ -82,6 +92,7 @@ public class Game : MonoBehaviour {
     {
         Enemies .Clear();
         Doors.Clear();
+        Torches.Clear();
 
         foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
@@ -94,6 +105,13 @@ public class Game : MonoBehaviour {
             Doors.Add(door);
         }
 
+        foreach(GameObject torchGO in GameObject.FindGameObjectsWithTag("Torch"))
+        {
+            GameObject particleFXGO = torchGO.GetComponentInChildren<ParticleSystem>().gameObject;
+            particleFXGO.SetActive(false);
+            Torches.Add(particleFXGO);
+        }
+
         if(Enemies.Count > 0)
         {
             inEncounter = true;
@@ -104,8 +122,7 @@ public class Game : MonoBehaviour {
         }
 
         Debug.Log("Encounter Started!");
-        Debug.Log("There are " + Enemies.Count + " Enemies");
-        Debug.Log("There are " + Doors.Count + " Doors");
+        Debug.Log("There are " + Enemies.Count + " Enemies, " + Doors.Count + " Doors, and " + Torches.Count + " Torches");
         if(Enemies.Count > 0)
             Debug.Log("Doors are locked!");
         else

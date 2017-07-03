@@ -7,8 +7,12 @@ public class Door : Selectable {
 
 	[SerializeField]
 	private DestinationRoom destinationRoom;
-
+	[SerializeField]
+	private Vector3 spawnDestination;
+	[SerializeField]
+	private Vector3 spawnRotOFfset;
 	private Animator anim;
+	
 
 	public bool Locked { get; set; }
 
@@ -44,6 +48,8 @@ public class Door : Selectable {
 	}
 
 	void LoadScene () {
+		Game.instance.SpawnPosition = spawnDestination;
+		Game.instance.SpawnRotOffset = spawnRotOFfset;
 		SceneManager.LoadScene(destinationRoom.ToString());
 	}
 	
@@ -61,6 +67,5 @@ public enum DestinationRoom
 	Room4,
 	Room5,
 	Room6,
-	Boss,
-	TestRoomCombat
+	BossRoom,
 }

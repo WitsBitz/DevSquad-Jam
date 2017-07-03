@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBehavior : MonoBehaviour {
 
@@ -37,11 +38,15 @@ public class EnemyBehavior : MonoBehaviour {
 	{
 		anim.SetTrigger("die");
 		Game.instance.Enemies.Remove(this.gameObject);
+		GetComponent<CapsuleCollider>().enabled = false;
+		
+		if(GetComponent<NavMeshAgent>() != null)
+			GetComponent<NavMeshAgent>().enabled = false;
 
 		MonoBehaviour[] comps = GetComponents<MonoBehaviour>();
 		foreach(MonoBehaviour c in comps)
 		{
-		c.enabled = false;
+			c.enabled = false;
 		}
 	}
 

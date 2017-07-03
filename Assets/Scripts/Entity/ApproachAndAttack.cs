@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ApproachAndAttack : MonoBehaviour 
 {
@@ -27,9 +28,11 @@ public class ApproachAndAttack : MonoBehaviour
     private MoveState moveState;
     private GameObject target;
     private Animator anim;
+    private NavMeshAgent agent; 
 
     private void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         // Randomize the enemy starts
         stateCooldown = UnityEngine.Random.Range(0f, idleCooldown);
@@ -61,6 +64,7 @@ public class ApproachAndAttack : MonoBehaviour
                 {
                     currentAttackCooldown = attackCooldown;
                     anim.SetTrigger("attack");
+                    target.GetComponent<Health>().TakeDamage(1);
                     // If we just attacked, go to idle
                     moveState = MoveState.Idle;
                     anim.SetTrigger("idle");
@@ -76,7 +80,10 @@ public class ApproachAndAttack : MonoBehaviour
                 if(!HasReachedCurrentWaypoint(waypoint))
                 {
                     var dir = (waypoint - transform.position).normalized;
-                    transform.position += dir * moveSpeed * Time.deltaTime;
+
+                    //switched to NavMesh for collider detection on melee
+                    if(agent != null)
+                        agent.SetDestination(target.transform.position);
                 }
                 else
                 {
